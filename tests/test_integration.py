@@ -2,7 +2,8 @@
 import pytest
 from app import create_app
 from extensions import db
-from models import User, Task
+from models import Task  # 'User' n'était pas utilisé
+
 
 @pytest.fixture
 def client():
@@ -29,6 +30,7 @@ def register(client, username="alice", password="secret"):
         follow_redirects=True,
     )
 
+
 def login(client, username="alice", password="secret"):
     return client.post(
         "/login",
@@ -44,13 +46,18 @@ def test_register_and_login(client):
     resp = login(client)
     assert b"Logged in successfully" in resp.data
 
+
 def test_create_task(client):
     register(client)
     login(client)
 
     resp = client.post(
         "/tasks/new",
-        data={"title": "Test task", "description": "Do something", "due_date": "2025-12-31"},
+        data={
+            "title": "Test task",
+            "description": "Do something",
+            "due_date": "2025-12-31",
+        },
         follow_redirects=True,
     )
     assert b"Task created" in resp.data
@@ -59,6 +66,7 @@ def test_create_task(client):
         task = Task.query.first()
         assert task is not None
         assert task.title == "Test task"
+
 
 def test_toggle_task(client):
     register(client)
