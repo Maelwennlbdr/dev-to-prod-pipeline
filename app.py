@@ -13,7 +13,7 @@ from flask import (
     g,
 )
 from dotenv import load_dotenv
-from extensions import db 
+from extensions import db
 
 load_dotenv()
 
@@ -49,7 +49,6 @@ def create_app():
     return app
 
 
-
 def login_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
@@ -66,10 +65,7 @@ def register_routes(app):
     @app.before_request
     def load_logged_in_user():
         user_id = session.get("user_id")
-        if user_id is None:
-            g.user = None
-        else:
-            g.user = User.query.get(user_id)
+        g.user = User.query.get(user_id) if user_id else None
 
     @app.route("/")
     @login_required
@@ -222,6 +218,7 @@ def register_routes(app):
         db.session.commit()
         flash("Task deleted.", "success")
         return redirect(url_for("index"))
+
 
 app = create_app()
 
