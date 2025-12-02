@@ -7,3 +7,4 @@ python-dotenv==1.0.1
 gunicorn
 pytest
 selenium
+webdriver_manager
