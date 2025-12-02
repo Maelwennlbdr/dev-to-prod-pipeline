@@ -1,8 +1,8 @@
 # tests/test_integration.py
 import pytest
-from ..app import create_app
+from app import create_app
 from extensions import db
-from ..models import Task  # 'User' n'était pas utilisé
+from models import Task  # 'User' n'était pas utilisé
 
 
 @pytest.fixture
