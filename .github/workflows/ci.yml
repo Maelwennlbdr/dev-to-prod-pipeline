@@ -44,7 +44,7 @@ jobs:
           POSTGRES_CHANNEL_BINDING: ${{ secrets.POSTGRES_CHANNEL_BINDING }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
-          pytest --maxfail=1 --disable-warnings -q
+          python -m pytest tests/ --maxfail=1 --disable-warnings -v
 
       - name: Build Docker image (validate)
         run: |
