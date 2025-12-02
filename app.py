@@ -29,7 +29,9 @@ def _build_postgres_uri() -> str:
     port = os.environ.get("POSTGRES_PORT", "5432")
     name = os.environ.get("POSTGRES_DB", "taskmanager")
 
-    return f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{name}"
+    return (
+        f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{name}"
+    )
 
 
 def create_app():
